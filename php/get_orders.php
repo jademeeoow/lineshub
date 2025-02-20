@@ -1,0 +1,94 @@
+<?php
+
+include_once "DBconnection.php";
+session_start();
+
+
+
+
+if (!isset($_GET['order_id'])) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Order ID is required']);
+    exit();
+}
+
+$order_id = intval($_GET['order_id']);
+
+try {
+
+    $stmt = $conn->prepare("
+        SELECT 
+            c.company_name, c.customer_id, c.first_name, c.last_name, 
+            c.phone_number, c.house_no, c.street_address, c.barangay, c.landmark,
+            o.order_id, o.additional_instructions, o.delivery_method, o.delivery_date, 
+            o.order_type, o.rush_fee, o.customization_fee, o.discount, 
+            o.downpayment, o.delivery_fee, o.total_amount, o.created_at, o.processed_by,
+            i.product_name, i.variant_color, i.variant_size, i.quantity, 
+            i.unit_price, i.total_price
+        FROM lines_orders o
+        INNER JOIN lines_customers c ON o.customer_id = c.customer_id
+        INNER JOIN lines_order_items i ON o.order_id = i.order_id
+        WHERE o.order_id = ?
+    ");
+    $stmt->bind_param("i", $order_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $order_data = null;
+
+
+    while ($row = $result->fetch_assoc()) {
+        if (!$order_data) {
+            $order_data = [
+                'customer' => [
+                    'company_name' => $row['company_name'],
+                    'customer_id' => $row['customer_id'],
+                    'first_name' => $row['first_name'],
+                    'last_name' => $row['last_name'],
+                    'phone_number' => $row['phone_number'],
+                    'house_no' => $row['house_no'],
+                    'street_address' => $row['street_address'],
+                    'barangay' => $row['barangay'],
+                    'landmark' => $row['landmark']
+                ],
+                'order' => [
+                    'order_id' => $row['order_id'],
+                    'additional_instructions' => $row['additional_instructions'],
+                    'delivery_method' => $row['delivery_method'],
+                    'delivery_date' => $row['delivery_date'],
+                    'order_type' => $row['order_type'],
+                    'rush_fee' => $row['rush_fee'],
+                    'customization_fee' => $row['customization_fee'],
+                    'discount' => $row['discount'],
+                    'downpayment' => $row['downpayment'],
+                    'delivery_fee' => $row['delivery_fee'],
+                    'total_amount' => $row['total_amount'],
+                    'created_at' => $row['created_at'],
+                    'processed_by' => $row['processed_by'],
+                    'items' => []
+                ]
+            ];
+        }
+
+
+        $order_data['order']['items'][] = [
+            'product_name' => $row['product_name'],
+            'variant_color' => $row['variant_color'],
+            'variant_size' => $row['variant_size'],
+            'quantity' => $row['quantity'],
+            'unit_price' => $row['unit_price'],
+            'total_price' => $row['total_price']
+        ];
+    }
+
+
+    if (!$order_data) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Order not found']);
+    } else {
+        echo json_encode($order_data);
+    }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}

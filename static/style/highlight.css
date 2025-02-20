@@ -1,0 +1,11 @@
+.highlighted-item {
+    animation: highlight-animation 2s ease;
+    border: 2px solid red;
+    background-color: #ffebcc;
+}
+
+@keyframes highlight-animation {
+    0% { background-color: #ffebcc; }
+    50% { background-color: #ffcc99; }
+    100% { background-color: #ffebcc; }
+}

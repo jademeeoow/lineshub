@@ -1,0 +1,128 @@
+:root{
+    --clr-main: #FFC000;
+    --clr-light: white;
+    --clr-dark: black;
+    --clr-p-link: #aaaaaa86;
+    --clr-bg: #222222;
+    --clr-bg-light: #FFF2CF;
+    --clr-link: #005CC8;
+    --shadow: rgba(128, 128, 128, 0.8) 0rem 0rem 1.5rem;
+    --btn-hover: rgba(128, 128, 128, 0.5) 0rem 0.2rem 0.5rem;
+    --lineShadow: rgba(128, 128, 128, 0.8) 0rem 0.25rem 0rem -0.1rem;
+    --marjBg: rgba(128, 128, 128, 0.15);
+}
+
+
+.btnexp {
+    display: flex;
+   justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.filwrap {
+    float: right;
+    margin-top: 5px;
+}
+
+.exp-table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.filterSales {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 1;
+
+
+}
+
+
+button{
+    font-weight: bolder;
+    font-size: 1rem;
+    cursor: pointer;
+   
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+
+.yellowButton{
+    font-weight: bolder;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--clr-main);
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+
+.clearyellowButton {
+    font-weight: bold;
+    font-size: 0.8rem; 
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem; 
+    margin-top: 1.7rem;
+    position: relative; 
+  
+}
+
+
+
+.clearyellowButton:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+
+

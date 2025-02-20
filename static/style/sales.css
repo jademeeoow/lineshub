@@ -1,0 +1,49 @@
+
+#filterOrders {
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+.filterOrders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    align-items: flex-start; 
+}
+
+.sales-table th, .sales-table td {
+    border: 1px solid #ccc;
+
+
+    white-space: nowrap; 
+}
+
+
+
+
+
+
+.filterOrders div {
+    display: flex;
+    align-items: center; 
+    gap: 5px; 
+}
+
+.filterOrders input[type="radio"] {
+    accent-color: #007bff;
+    transform: scale(1.2);
+}
+
+
+.filterOrders label {
+    font-size: 14px;
+}
